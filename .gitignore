@@ -1,6 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
-AccountBook-core/AccountBook-core.iml
+*.iml
 target/
 rebel.xml
 generatorConfig.xml
