@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.accountbook.base.mapper.AccountBookInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.accountbook.base.domain.AccountBookInfo">
+    <id column="id" property="id" />
+    <result column="work_name" property="workName" />
+    <result column="work_type" property="workType" />
+    <result column="work_number" property="workNumber" />
+    <result column="date" property="date" />
+    <result column="state" property="state" />
+    <result column="remark" property="remark" />
+    <result column="active" property="active" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey">
+    delete from account_book_info
+    where id = #{id}
+  </delete>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into account_book_info (work_name, work_type, work_number, date, state, remark, active
+      )
+    values (#{workName}, #{workType}, #{workNumber}, #{date}, #{state}, #{remark}, #{active}
+      )
+  </insert>
+  <update id="updateByPrimaryKey">
+    update account_book_info
+    set work_name = #{workName},
+      work_type = #{workType},
+      work_number = #{workNumber},
+      date = #{date},
+      state = #{state},
+      remark = #{remark},
+      active = #{active}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, work_name, work_type, work_number, date, state, remark, active
+    from account_book_info
+    where id = #{id}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, work_name, work_type, work_number, date, state, remark, active
+    from account_book_info
+  </select>
+
+  <select id="selectForCount" resultType="java.lang.Integer">
+    select count(0) from account_book_info
+    <include refid="base_where"/>
+  </select>
+
+  <select id="selectForList" resultMap="BaseResultMap">
+    select id, work_name, work_type, work_number, date, state, remark, active
+    from account_book_info
+    <include refid="base_where"/>
+    LIMIT #{start},#{pageSize}
+  </select>
+  <sql id="base_where">
+    <where>
+      <if test="beginDate != null">
+        and date &gt;= #{beginDate}
+      </if>
+      <if test="endDate != null">
+        and date &lt;= #{endDate}
+      </if>
+      <if test="state != null">
+        and state = #{state}
+      </if>
+      <if test="username != null">
+        and work_name = #{username}
+      </if>
+    </where>
+  </sql>
+</mapper>

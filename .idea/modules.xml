@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AccountBook-core/AccountBook-core.iml" filepath="$PROJECT_DIR$/AccountBook-core/AccountBook-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AccountBook-mgrsite/AccountBook-mgrsite.iml" filepath="$PROJECT_DIR$/AccountBook-mgrsite/AccountBook-mgrsite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AccountBook-parent.iml" filepath="$PROJECT_DIR$/AccountBook-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AccountBook-website/AccountBook-website.iml" filepath="$PROJECT_DIR$/AccountBook-website/AccountBook-website.iml" />
+    </modules>
+  </component>
+</project>
