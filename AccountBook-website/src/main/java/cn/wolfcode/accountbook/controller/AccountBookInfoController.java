@@ -8,9 +8,7 @@ import cn.wolfcode.accountbook.util.JSONResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("accountBookInfo")
@@ -25,6 +23,7 @@ public class AccountBookInfoController {
         return "accountbookinfo_list";
     }
 
+    //@PostMapping("saveOrUpdate")
     @RequestMapping("saveOrUpdate")
     @ResponseBody
     public JSONResult saveOrUpdate (AccountBookInfo accountBookInfo) {
@@ -39,5 +38,18 @@ public class AccountBookInfoController {
 
     }
 
+ /*   @RequestMapping("delete")
+    @ResponseBody
+    public JSONResult delete (Long id) {
+        JSONResult jsonResult = new JSONResult();
+        try{
+            AccountBookInfoService.delete(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonResult.mark("删除失败");
+        }
+        return   jsonResult;
+
+    }*/
 
 }

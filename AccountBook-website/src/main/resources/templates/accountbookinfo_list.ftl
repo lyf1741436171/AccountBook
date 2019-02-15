@@ -30,13 +30,11 @@
                 console.log(obj);
                 if(obj){
                     $("#editForm input[name='id']").val(obj.id);
-                    $("#editForm input[name='title']").val(obj.title);
-                    $("#editForm input[name='subTitle']").val(obj.subTitle);
-                    $("#editForm input[name='schedule']").val(obj.schedule);
-                    $("#coverImg").attr("src",obj.coverUrl);
-                    $("#editForm input[name='coverUrl']").val(obj.coverUrl);
-                    $("#editForm select[name='state']").val(obj.state);
-                    $("#editForm select[name='place.id']").val(obj.placeId);
+                    $("#editForm input[name='workName']").val(obj.workName);
+                    $("#editForm input[name='workType']").val(obj.workType);
+                    $("#editForm input[name='workNumber']").val(obj.workNumber);
+                    $("#editForm input[name='date']").val(obj.date);
+                    $("#editForm textarea[name='remark']").text(obj.remark);
 
                 }
                 $("#inputModal").modal("show")
@@ -83,19 +81,19 @@
         </div>
         <!-- 功能页面 -->
         <div class="col-sm-9">
-            <form action="/ipLog" name="searchForm" id="searchForm" class="form-inline" method="post">
-                <input type="hidden" id="currentPage" name="currentPage" value=""/>
+            <form action="/accountBookInfo/list" name="searchForm" id="searchForm" class="form-inline" method="post">
+                <input type="hidden" id="currentPage" name="currentPage" value="${qo.currentPage}"/>
                 <div class="form-group">
                     <label>时间范围</label>
-                    <input type="text" class="form-control beginDate" name="beginDate" onclick="WdatePicker()"
+                    <input type="text" class="form-control beginDate" name="beginDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
                            value='${(qo.beginDate?string("yyyy-MM-dd"))!""}'/>
                 </div>
                 <div class="form-group">
                     <label></label>
-                    <input type="text" class="form-control endDate" name="endDate" onclick="WdatePicker()"
+                    <input type="text" class="form-control endDate" name="endDate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})"
                            value='${(qo.endDate?string("yyyy-MM-dd"))!""}'/>
                 </div>
-                <div class="form-group">
+            <#--    <div class="form-group">
                     <label>状态</label>
                     <select class="form-control" name="state" id="state">
                         <option value="-1">全部</option>
@@ -105,7 +103,11 @@
                 </div>
                     <script>
                       $("#state option[value='']").attr("selected",true);
-                    </script>
+                    </script>-->
+                <div class="form-group">
+                    <label>工人</label>
+                    <input type="text" class="form-control endDate" name="username" value="${qo.username!""}"/>
+                </div>
                 <div class="form-group">
                     <button type="submit" id="query" class="btn btn-success"><i class="icon-search"></i> 查询</button>
                 </div>
@@ -144,8 +146,8 @@
                         <td>${itme.date?string("yyyy-MM-dd HH:mm")}</td>
                         <td>${itme.remark}</td>
                         <td>
-                            <button type="button" class="btn btn-warning">修改</button>
-                            <button type="button" class="btn btn-danger">删除</button>
+                            <button type="button" class="btn btn-warning inputBtn" data-json='${itme.json}'>修改</button>
+                            <button type="button" class="btn btn-danger" data-url="/accountBookInfo/delete?id='${itme.id}'">删除</button>
                         </td>
 
                     </tr>
