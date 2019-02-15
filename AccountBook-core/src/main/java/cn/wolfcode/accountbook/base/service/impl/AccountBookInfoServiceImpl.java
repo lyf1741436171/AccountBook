@@ -37,4 +37,8 @@ public class AccountBookInfoServiceImpl implements IAccountBookInfoService {
             accountBookInfoMapper.updateByPrimaryKey(accountBookInfo);
         }
     }
+    @Override
+    public void deleteUser(Long id){
+        accountBookInfoMapper.deleteByPrimaryKey(id);
+    }
 }

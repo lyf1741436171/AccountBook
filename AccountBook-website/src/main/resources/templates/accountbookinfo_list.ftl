@@ -57,6 +57,7 @@
 
             $('.deleteBtn').click(function () {
                 var url = $(this).data("url");
+                alert(url);
                 $.messager.confirm("温馨提示","亲,您确定要删除改数据吗?",function () {
                     $.get(url,function () {
                         location.reload();
@@ -145,7 +146,7 @@
                         <td>${itme.remark}</td>
                         <td>
                             <button type="button" class="btn btn-warning">修改</button>
-                            <button type="button" class="btn btn-danger">删除</button>
+                            <button type="button" class="btn btn-danger deleteBtn" data-url="/accountBookInfo/delete?id=${itme.id}">删除</button>
                         </td>
 
                     </tr>

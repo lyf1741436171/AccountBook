@@ -8,4 +8,6 @@ public interface IAccountBookInfoService {
     PageResult selectForList(AccountBookQuery qo);
 
     void saveOrUpdate(AccountBookInfo accountBookInfo);
+
+    void deleteUser(Long id);
 }
