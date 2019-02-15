@@ -31,7 +31,7 @@ public class AccountBookInfoServiceImpl implements IAccountBookInfoService {
     @Override
     public void saveOrUpdate(AccountBookInfo accountBookInfo) {
 
-        if (accountBookInfo != null){
+        if (accountBookInfo.getId() == null){
             accountBookInfoMapper.insert(accountBookInfo);
         }else{
             accountBookInfoMapper.updateByPrimaryKey(accountBookInfo);

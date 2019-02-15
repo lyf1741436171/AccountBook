@@ -12,7 +12,7 @@
 
     <artifactId>AccountBook-website</artifactId>
 
-    <name>accountbook-mgrsite</name>
+    <name>accountbook-website</name>
     <url>http://www.example.com</url>
 
     <properties>
