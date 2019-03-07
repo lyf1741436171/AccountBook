@@ -61,6 +61,23 @@
                     })
                 });
             });
+
+            //导入Excel
+            $(".importBtn").click(function () {
+                $("#importModal").modal("show")
+            });
+
+            $("#importSubmit").click(function (data) {
+                $("#importForm").ajaxSubmit(function (data) {
+                    if (data) {
+                        $.messager.confirm("温馨提示", "导入成功", function () {
+                            location.reload();
+                        });
+                    } else {
+                        $.messager.alert("温馨提示", "导入失败");
+                    }
+                })
+            });
         });
     </script>
 </head>
@@ -116,9 +133,13 @@
                 </div>-->
                 <div class="form-group">
                     <button type="button" class="btn btn-success inputBtn">新增</button>
-                    <button type="button" class="btn btn-info">导入</button>
-                    <button type="button" class="btn btn-primary">导出</button>
                 </div>
+                <a href="javascript: window.open('/accountBookInfo/export');" class="btn btn-primary">
+                    <spam class="glyphicon glyphicon-export"></spam>导入
+                </a>
+                <a href="javascript:" class="btn btn-primary importBtn">
+                    <spam class="glyphicon glyphicon-export"></spam>导入
+                </a>
             </form>
 
             <div class="panel panel-default" style="margin-top: 20px;">
@@ -206,6 +227,37 @@
             </div>
             <div class="modal-footer">
                 <a href="javascript:void(0);" class="btn btn-success" id="submit" aria-hidden="true">保存</a>
+                <a href="javascript:void(0);" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>
+<#-- 导入模态框 -->
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">导入Excel</h4>
+            </div>
+            <div class="modal-body content">
+                <form class="form-horizontal" action="/accountBookInfo/import" enctype="multipart/form-data"  method="post" id="importForm">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">上传Excel</label>
+                        <div class="col-sm-6">
+                            <input type="file" class="form-control" id="title" name="xlsx" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">下载模板: </label>
+                        <div class="col-sm-6">
+                            <input type="button" class="form-control btn btn-primary" id="subTitle" value="下载模板" onclick="window.open('/template/workbook.xlsx');" ">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0);" class="btn btn-success" id="importSubmit" aria-hidden="true">保存</a>
                 <a href="javascript:void(0);" class="btn" data-dismiss="modal" aria-hidden="true">关闭</a>
             </div>
         </div>

@@ -37,4 +37,9 @@ public class AccountBookInfoServiceImpl implements IAccountBookInfoService {
             accountBookInfoMapper.updateByPrimaryKey(accountBookInfo);
         }
     }
+
+    @Override
+    public List<AccountBookInfo> selectAll() {
+        return accountBookInfoMapper.selectAll();
+    }
 }
