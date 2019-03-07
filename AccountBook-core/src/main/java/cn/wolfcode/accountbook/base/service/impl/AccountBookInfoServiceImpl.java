@@ -42,4 +42,8 @@ public class AccountBookInfoServiceImpl implements IAccountBookInfoService {
     public List<AccountBookInfo> selectAll() {
         return accountBookInfoMapper.selectAll();
     }
+    @Override
+    public void deleteUser(Long id){
+        accountBookInfoMapper.deleteByPrimaryKey(id);
+    }
 }

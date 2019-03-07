@@ -11,5 +11,7 @@ public interface IAccountBookInfoService {
 
     void saveOrUpdate(AccountBookInfo accountBookInfo);
 
+    void deleteUser(Long id);
+
     List<AccountBookInfo> selectAll();
 }

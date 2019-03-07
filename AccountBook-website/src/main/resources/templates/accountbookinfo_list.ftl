@@ -168,7 +168,7 @@
                         <td>${itme.remark}</td>
                         <td>
                             <button type="button" class="btn btn-warning inputBtn" data-json='${itme.json}'>修改</button>
-                            <button type="button" class="btn btn-danger" data-url="/accountBookInfo/delete?id='${itme.id}'">删除</button>
+                            <button type="button" class="btn btn-danger" data-url="/accountBookInfo/delete?id=${itme.id}">删除</button>
                         </td>
 
                     </tr>

@@ -39,7 +39,6 @@ public class AccountBookInfoController {
         return "accountbookinfo_list";
     }
 
-    //@PostMapping("saveOrUpdate")
     @RequestMapping("saveOrUpdate")
     @ResponseBody
     public JSONResult saveOrUpdate(AccountBookInfo accountBookInfo) {
@@ -53,19 +52,19 @@ public class AccountBookInfoController {
         return jsonResult;
 
     }
+    @RequestMapping("delete")
+    @ResponseBody
+    public JSONResult delete(Long id){
+        JSONResult jsonResult = new JSONResult();
+        try {
+            accountBookInfoService.deleteUser(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            jsonResult.mark("删除失败");
+        }
+        return jsonResult;
+    }
 
-    /*   @RequestMapping("delete")
-       @ResponseBody
-       public JSONResult delete (Long id) {
-           JSONResult jsonResult = new JSONResult();
-           try{
-               AccountBookInfoService.delete(id);
-           }catch (Exception e){
-               e.printStackTrace();
-           }
-           return   jsonResult;
-
-       }*/
     @RequestMapping("export")
     public ModelAndView export(HttpServletResponse response, HttpServletRequest request) throws Exception {
         //创建工作薄
