@@ -99,7 +99,7 @@ public class AccountBookInfoController {
 
     @RequestMapping("import")
     public String importExcel(MultipartFile xlsx) throws Exception {
-        String xlsxType = "application/octet-stream";
+        String xlsxType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
         String xlsType = "application/vnd.ms-excel";
         if(xlsx != null && xlsxType.equals(xlsx.getContentType()) || xlsType.equals(xlsx.getContentType())){
             Workbook wb = new XSSFWorkbook(xlsx.getInputStream());

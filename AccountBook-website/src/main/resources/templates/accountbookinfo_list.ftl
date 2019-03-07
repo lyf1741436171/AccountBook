@@ -135,10 +135,10 @@
                     <button type="button" class="btn btn-success inputBtn">新增</button>
                 </div>
                 <a href="javascript: window.open('/accountBookInfo/export');" class="btn btn-primary">
-                    <spam class="glyphicon glyphicon-export"></spam>导入
+                    <spam class="glyphicon glyphicon-export"></spam>导出
                 </a>
                 <a href="javascript:" class="btn btn-primary importBtn">
-                    <spam class="glyphicon glyphicon-export"></spam>导入
+                    <spam class="glyphicon glyphicon-import"></spam>导入
                 </a>
             </form>
 
