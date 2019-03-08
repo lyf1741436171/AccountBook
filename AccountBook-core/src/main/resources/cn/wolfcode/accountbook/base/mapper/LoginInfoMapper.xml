@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.accountbook.base.mapper.LoginInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.accountbook.base.domain.LoginInfo">
+    <id column="id" property="id" />
+    <result column="username" property="username" />
+    <result column="password" property="password" />
+    <result column="state" property="state" />
+    <result column="user_type" property="userType" />
+  </resultMap>
+  <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+    insert into login_info (username, password, state,user_type)
+    values (#{username}, #{password}, #{state},#{userType})
+  </insert>
+  <update id="updateByPrimaryKey">
+    update login_info
+    set username = #{username},
+      password = #{password},
+      state = #{state}
+    where id = #{id}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+    select id, username, password, state
+    from login_info
+    where id = #{id}
+  </select>
+  <select id="exisUsername" resultType="int">
+    select COUNT(0) from login_info where username = #{phone}
+  </select>
+  <select id="login" resultMap="BaseResultMap">
+    select id, username, state,user_type
+    from login_info
+    where username = #{username} and password = #{password}
+  </select>
+  <select id="selectByAuditors" resultMap="BaseResultMap">
+    select id, username
+    from login_info
+    WHERE userType = '1' AND username != 'admin'
+  </select>
+
+</mapper>

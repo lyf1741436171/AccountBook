@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.accountbook.base.mapper.IpLogMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.accountbook.base.domain.IpLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="user_type" property="userType"/>
+  </resultMap>
+
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.wolfcode.accountbook.base.domain.IpLog" useGeneratedKeys="true">
+    insert into iplog (ip, state, username,login_time,user_type)
+    values (#{ip,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, #{username,jdbcType=VARCHAR},
+      #{loginTime,jdbcType=TIMESTAMP},#{userType,jdbcType=TINYINT})
+  </insert>
+
+
+  <select id="selectForCount" resultType="java.lang.Integer">
+    select count(0) from iplog
+    <include refid="base_where"/>
+  </select>
+
+  <select id="selectForList" resultMap="BaseResultMap">
+    select id, ip, state, username, login_time,user_type
+    from iplog
+    <include refid="base_where"/>
+    ORDER BY login_time
+    LIMIT #{start},#{pageSize}
+  </select>
+  <sql id="base_where">
+    <where>
+      <if test="beginDate != null">
+          and login_time &gt;= #{beginDate}
+      </if>
+      <if test="endDate != null">
+          and login_time &lt;= #{endDate}
+      </if>
+      <if test="state != -1">
+          and state = #{state}
+      </if>
+      <if test="username != null">
+        and username = #{username}
+      </if>
+      <if test="userType != -1">
+        and user_type = #{userType}
+      </if>
+    </where>
+  </sql>
+
+</mapper>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wolfcode.accountbook.base.mapper.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="cn.wolfcode.accountbook.base.domain.UserInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="version"  property="version" />
+    <result column="bitstate" jdbcType="BIGINT" property="bitstate" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="real_auth_id" jdbcType="VARCHAR" property="realAuthId" />
+    <result column="video_auth_id" property="videoAuthId"/>
+    <association property="incomeGrade" column="income_grade_id" select="cn.wolfcode.accountbook.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey"></association>
+    <association property="marriage" column="marriage_id" select="cn.wolfcode.accountbook.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey"></association>
+    <association property="kidCount" column="kid_count_id" select="cn.wolfcode.accountbook.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey"></association>
+    <association property="educationBackground" column="education_background_id" select="cn.wolfcode.accountbook.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey"></association>
+    <association property="houseCondition" column="house_condition_id" select="cn.wolfcode.accountbook.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey"></association>
+
+  </resultMap>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.wolfcode.accountbook.base.domain.UserInfo" useGeneratedKeys="true">
+    insert into user_info (id,version, bitstate, real_name,
+      id_number, phone_number, email,
+      income_grade_id, marriage_id, kid_count_id,
+      education_background_id, house_condition_id,real_auth_id)
+    values (#{id},#{version}, #{bitstate}, #{realName},
+      #{idNumber}, #{phoneNumber}, #{email},
+      #{incomeGrade.id}, #{marriage.id}, #{kidCount.id},
+      #{educationBackground.id}, #{houseCondition.id},#{realAuthId})
+  </insert>
+
+
+  <update id="updateByPrimaryKey" parameterType="cn.wolfcode.accountbook.base.domain.UserInfo">
+    update user_info
+    set version = version + 1,
+      bitstate = #{bitstate},
+      real_name = #{realName},
+      id_number = #{idNumber},
+      phone_number = #{phoneNumber},
+      email = #{email},
+      income_grade_id = #{incomeGrade.id},
+      marriage_id = #{marriage.id},
+      kid_count_id = #{kidCount.id},
+      education_background_id = #{educationBackground.id},
+      house_condition_id = #{houseCondition.id},
+      real_auth_id = #{realAuthId},
+      video_auth_id = #{videoAuthId}
+    where id = #{id} and version =#{version}
+  </update>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, version, bitstate, real_name, id_number, phone_number, email, income_grade_id, 
+    marriage_id, kid_count_id, education_background_id, house_condition_id,real_auth_id,video_auth_id
+    from user_info
+    where id = #{id}
+  </select>
+</mapper>
