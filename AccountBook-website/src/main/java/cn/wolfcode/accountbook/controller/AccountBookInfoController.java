@@ -1,10 +1,12 @@
 package cn.wolfcode.accountbook.controller;
 
+import cn.wolfcode.accountbook.base.annotation.NeedLogin;
 import cn.wolfcode.accountbook.base.domain.AccountBookInfo;
+import cn.wolfcode.accountbook.base.exception.CustomException;
 import cn.wolfcode.accountbook.base.query.AccountBookQuery;
 import cn.wolfcode.accountbook.base.query.PageResult;
 import cn.wolfcode.accountbook.base.service.IAccountBookInfoService;
-import cn.wolfcode.accountbook.util.JSONResult;
+import cn.wolfcode.accountbook.util.JsonResult;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -33,6 +35,7 @@ public class AccountBookInfoController {
     private IAccountBookInfoService accountBookInfoService;
 
     @RequestMapping("list")
+    @NeedLogin
     public String list(@ModelAttribute("qo") AccountBookQuery qo, Model mode) {
         PageResult pageResult = accountBookInfoService.selectForList(qo);
         mode.addAttribute("pageResult", pageResult);
@@ -41,26 +44,30 @@ public class AccountBookInfoController {
 
     @RequestMapping("saveOrUpdate")
     @ResponseBody
-    public JSONResult saveOrUpdate(AccountBookInfo accountBookInfo) {
-        JSONResult jsonResult = new JSONResult();
+    public JsonResult saveOrUpdate(AccountBookInfo accountBookInfo) {
+        JsonResult jsonResult = new JsonResult();
         try {
             accountBookInfoService.saveOrUpdate(accountBookInfo);
+        } catch (CustomException e) {
+            jsonResult.setMessage(e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
-            jsonResult.mark("执行失败");
+            jsonResult.setMessage("系统异常啦,请稍后再试");
         }
         return jsonResult;
-
     }
+
     @RequestMapping("delete")
     @ResponseBody
-    public JSONResult delete(Long id){
-        JSONResult jsonResult = new JSONResult();
+    public JsonResult delete(Long id){
+        JsonResult jsonResult = new JsonResult();
         try {
             accountBookInfoService.deleteUser(id);
-        }catch (Exception e){
+        } catch (CustomException e) {
+            jsonResult.setMessage(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
-            jsonResult.mark("删除失败");
+            jsonResult.setMessage("删除失败");
         }
         return jsonResult;
     }
